@@ -174,8 +174,7 @@ int main(int argc, char *argv[]) {
 
       laser_pub->publish(std::move(scan_msg));
 
-
-    } else {
+    } else if (!laser.isScanning()) {
       RCLCPP_ERROR(node->get_logger(), "Failed to get scan");
     }
     if(!rclcpp::ok()) {
