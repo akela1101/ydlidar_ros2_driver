@@ -148,7 +148,7 @@ int main(int argc, char *argv[]) {
 
     if (laser.doProcessSimple(scan)) {
 
-      auto scan_msg = std::make_shared<sensor_msgs::msg::LaserScan>();
+      auto scan_msg = std::make_unique<sensor_msgs::msg::LaserScan>();
 
       scan_msg->header.stamp.sec = RCL_NS_TO_S(scan.stamp);
       scan_msg->header.stamp.nanosec =  scan.stamp - RCL_S_TO_NS(scan_msg->header.stamp.sec);
@@ -172,7 +172,7 @@ int main(int argc, char *argv[]) {
         }
       }
 
-      laser_pub->publish(*scan_msg);
+      laser_pub->publish(std::move(scan_msg));
 
 
     } else {
